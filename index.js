@@ -52,7 +52,7 @@ async function run() {
       res.send({ token })
     })
 
-    app.get('/services', verifyJWT, async (req, res) => {
+    app.get('/services', async (req, res) => {
 
       const query = {}
       const curser = serviceCollection.find(query);
@@ -124,7 +124,6 @@ async function run() {
         res.send(result);
       })
 
-      //  
 
 
     })
