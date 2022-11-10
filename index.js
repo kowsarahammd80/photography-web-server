@@ -83,7 +83,7 @@ async function run() {
 
     // review post
 
-    app.post('/reviews', verifyJWT, async (req, res) => {
+    app.post('/reviews', async (req, res) => {
 
       const review = req.body;
       const result = await addReviewCollection.insertOne(review);
@@ -92,7 +92,7 @@ async function run() {
     })
 
 
-    app.get('/reviews/:serviceId', verifyJWT, async (req, res) => {
+    app.get('/reviews/:serviceId', async (req, res) => {
 
       const serviceId = req.params.serviceId;
       const query = { serviceId };
