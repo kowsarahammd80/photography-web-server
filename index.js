@@ -44,26 +44,50 @@ async function run() {
 
     //  service post 
 
-    app.post('/services' , async(req, res) => {
+    app.post('/services', async (req, res) => {
 
       const order = req.body;
       const result = await serviceCollection.insertOne(order);
       console.log(result)
       res.send(result);
 
-   });
+    });
 
     // review post
 
-   app.post('/reviews', async (req, res) => {
-     
-    const review = req.body;
-    const result = await addReviewCollection.insertOne(review);
-    res.send(result);
+    app.post('/reviews', async (req, res) => {
 
-   })
+      const review = req.body;
+      const result = await addReviewCollection.insertOne(review);
+      res.send(result);
 
-   
+    })
+
+
+    app.get('/reviews/:serviceId', async (req, res) => {
+
+      const serviceId = req.params.serviceId;
+      const query = { serviceId };
+      const sort = { time: -1 };
+      const curser = addReviewCollection.find(query).sort(sort);
+      const result = await curser.toArray();
+      console.log(serviceId)
+      res.send(result);
+
+
+    })
+
+    app.get('/myreview/:email', async (req, res) => {
+
+      const email = req.params.email;
+      const query = { email };
+      const sort = { time: -1 };
+      const curser = addReviewCollection.find(query).sort(sort);
+      const result = await curser.toArray();
+      res.send(result);
+
+
+    })
 
 
   }
